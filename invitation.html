@@ -212,7 +212,7 @@
 
                     <!-- Congratulations Button -->
                     <div style="text-align: center; margin-top: 20px;">
-                        <button id="congratulations-btn" class="congratulations-btn">MỪNG CƯỚI</button>
+                        <button type="button" id="congratulations-btn" class="congratulations-btn">MỪNG CƯỚI</button>
                     </div>
                 </form>
             </div>
@@ -290,6 +290,7 @@
             <div class="modal-body">
                 <div class="qr-modal-header">
                     <h3 class="modal-title">Mừng cưới cô dâu Minh Hảo ❤️</h3>
+                    <button id="qr-modal-close" class="qr-modal-close-btn">&times;</button>
                 </div>
                 <div class="qr-content">
                     <div class="qr-image-container">
@@ -530,9 +531,22 @@
 
         // QR Code Modal functions
         function showQrModal() {
+            // Blur any active input to prevent focus issues
+            if (document.activeElement && document.activeElement.blur) {
+                document.activeElement.blur();
+            }
+            
             const modal = document.getElementById('qr-modal');
             modal.style.display = 'flex';
             document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            
+            // Set focus to close button for better accessibility
+            setTimeout(() => {
+                const closeBtn = document.getElementById('qr-modal-close');
+                if (closeBtn) {
+                    closeBtn.focus();
+                }
+            }, 100);
         }
 
         function closeQrModal() {
@@ -548,7 +562,10 @@
             const qrModal = document.getElementById('qr-modal');
 
             if (congratulationsBtn) {
-                congratulationsBtn.addEventListener('click', showQrModal);
+                congratulationsBtn.addEventListener('click', function(e) {
+                    e.preventDefault(); // Prevent default button behavior
+                    showQrModal();
+                });
             }
 
             if (qrModalClose) {

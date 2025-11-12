@@ -540,11 +540,6 @@ body {
         margin-bottom: 25px;
     }
 
-    .rsvp-button {
-        padding: 12px 30px;
-        font-size: 12px;
-    }
-
     .rsvp-flower-top,
     .rsvp-flower-bottom,
     .rsvp-leaf-right {
@@ -597,11 +592,6 @@ body {
     .rsvp-text {
         font-size: 12px;
         margin-bottom: 20px;
-    }
-
-    .rsvp-button {
-        padding: 10px 25px;
-        font-size: 11px;
     }
 
     .form-flower-left {
@@ -1216,6 +1206,11 @@ img {
         flex-direction: column;
         gap: 15px;
         text-align: center;
+    }
+
+    .qr-code-image {
+        width: 80%;
+        height: 80%;
     }
 
     .qr-description {
