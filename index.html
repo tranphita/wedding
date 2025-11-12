@@ -330,15 +330,14 @@
 
         // Cập nhật tên khách mời
         function initializeGuest() {
-            const title = getUrlParameter('title');
-            let name = getUrlParameter('name');
+            let title = getUrlParameter('title');
+            title = title.replace(/_/g, ' ');
 
-            name = name.replace(/_/g, ' ');
-            console.log(name);
-            
+            let name = getUrlParameter('name');
+            name = name.replace(/_/g, ' ');   
             const guestTitleElement = document.getElementById('guestTitle');
             if (title) {
-                const capitalizedTitle = title.charAt(0).toUpperCase() + title.slice(1).toLowerCase();
+                const capitalizedTitle = title.toUpperCase();
                 guestTitleElement.textContent = capitalizedTitle;
             }
 
@@ -350,7 +349,10 @@
 
         function goToIndex() {
             document.getElementById('loading').classList.add('active');
-            const title = getUrlParameter('title');
+            let title = getUrlParameter('title');
+
+            title = title.replace(/_/g, ' ');
+
             let name = getUrlParameter('name');
             
             // Replace underscores with spaces in name parameter

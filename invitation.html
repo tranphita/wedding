@@ -378,7 +378,9 @@
             }
 
             // Initialize guest name from URL parameters
-            const title = getUrlParameter('title') || '';
+            let title = getUrlParameter('title') || '';
+            title = title.replace(/_/g, ' ');
+            
             let name = getUrlParameter('name') || '';
             name = name.replace(/_/g, ' ');
 
