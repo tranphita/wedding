@@ -209,6 +209,11 @@
                     <div style="text-align: center; margin-top: 30px;">
                         <button type="submit" class="form-submit">Xác nhận tham dự</button>
                     </div>
+
+                    <!-- Congratulations Button -->
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button id="congratulations-btn" class="congratulations-btn">MỪNG CƯỚI</button>
+                    </div>
                 </form>
             </div>
         </section>
@@ -232,7 +237,9 @@
                     mà chúng tôi mong muốn nhận được
                 </p>
 
-                <a href="/wedding/gallery.html" class="rsvp-button">XEM KHOẢNH KHẮC ĐẸP</a>
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px;">
+                    <a href="/wedding/gallery.html" class="rsvp-button">XEM KHOẢNH KHẮC ĐẸP</a>
+                </div>
             </div>
 
             <!-- Leaf bottom right -->
@@ -277,7 +284,30 @@
         </div>
     </div>
 
-    <script>
+    <!-- QR Code Modal -->
+    <div id="qr-modal" class="modal">
+        <div class="modal-content qr-modal-content">
+            <div class="modal-body">
+                <div class="qr-modal-header">
+                    <h3 class="modal-title">Mừng cưới cô dâu Minh Hảo ❤️</h3>
+                </div>
+                <div class="qr-content">
+                    <div class="qr-image-container">
+                        <img src="images/qr-code.jpg" alt="QR Code mừng cưới" class="qr-code-image" 
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <div class="qr-placeholder" style="display:none; width:200px; height:200px; border-radius:8px; background:linear-gradient(135deg, #8b4f4f 0%, #5a3030 100%); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); flex-shrink:0; position:relative;">
+                            <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); color:#fff; font-size:12px; text-align:center; padding:10px;">
+                                Thêm ảnh QR code<br>images/qr-code.jpg
+                            </div>
+                        </div>
+                    </div>
+                    <p class="qr-description">
+                        Quét mã QR để gửi lời chúc mừng và quà mừng cưới đến cô dâu <strong>Minh Hảo 😘</strong> 
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>    <script>
         // Get URL parameters
         function getUrlParameter(name) {
             const queryString = window.location.search.substring(1);
@@ -496,6 +526,50 @@
             }, { threshold: 0.1 });
 
             images.forEach(img => imageObserver.observe(img));
+        });
+
+        // QR Code Modal functions
+        function showQrModal() {
+            const modal = document.getElementById('qr-modal');
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeQrModal() {
+            const modal = document.getElementById('qr-modal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        // Handle congratulations button click
+        document.addEventListener('DOMContentLoaded', function() {
+            const congratulationsBtn = document.getElementById('congratulations-btn');
+            const qrModalClose = document.getElementById('qr-modal-close');
+            const qrModal = document.getElementById('qr-modal');
+
+            if (congratulationsBtn) {
+                congratulationsBtn.addEventListener('click', showQrModal);
+            }
+
+            if (qrModalClose) {
+                qrModalClose.addEventListener('click', closeQrModal);
+            }
+
+            // Close modal when clicking outside
+            if (qrModal) {
+                qrModal.addEventListener('click', function(e) {
+                    if (e.target === qrModal) {
+                        closeQrModal();
+                    }
+                });
+            }
+
+            // Close modal with ESC key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && qrModal && qrModal.style.display === 'flex') {
+                    closeQrModal();
+                }
+            });
         });
     </script>
 </body>

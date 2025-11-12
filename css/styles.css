@@ -329,7 +329,7 @@ body {
     display: inline-block;
     background: #6b8e6b;
     color: #ffffff;
-    padding: 14px 40px;
+    padding: 14px 80px;
     border-radius: 25px;
     text-decoration: none;
     font-size: 13px;
@@ -1119,5 +1119,106 @@ img {
     .lightbox-close {
         top: 10px;
         right: 10px;
+    }
+}
+
+/* QR Code Modal Styles */
+.qr-modal-content {
+    max-width: 500px;
+}
+
+.qr-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.qr-modal-close-btn {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #666;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.qr-modal-close-btn:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.qr-content {
+    text-align: center;
+}
+
+.qr-image-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.qr-code-image {
+    width: 100%;
+    height: auto;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.qr-description {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.congratulations-btn {
+    display: inline-block;
+    padding: 14px 110px;
+    background: linear-gradient(135deg, #df3081 0%, #6875d3 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    transition: all 0.3s;
+    margin-top: 20px;
+}
+
+.congratulations-btn:hover {
+    background: linear-gradient(135deg, #c89666 0%, #b8865a 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(212, 165, 116, 0.4);
+}
+
+.congratulations-btn:active {
+    transform: translateY(0);
+}
+
+/* Responsive QR Modal */
+@media (max-width: 768px) {
+    .qr-modal-content {
+        max-width: 90%;
+    }
+
+    .qr-modal-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .qr-description {
+        font-size: 13px;
     }
 }
