@@ -254,8 +254,15 @@
             }
 
             .gallery-item-wrapper {
-                aspect-ratio: auto;
-                min-height: 300px;
+                aspect-ratio: unset;
+                min-height: unset;
+                height: auto;
+            }
+
+            .gallery-item-wrapper img {
+                width: 100%;
+                height: auto;
+                object-fit: contain;
             }
 
             .lightbox-prev,
