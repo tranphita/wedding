@@ -4,326 +4,312 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thiệp Mời</title>
+    <title>Xác nhận thông tin khách mời</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Crimson+Text:ital@0;1&family=Great+Vibes&family=Cormorant+Garamond:wght@400;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Muli:wght@400;600&family=Playfair+Display:wght@400;600&display=swap"
         rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Crimson Text', serif;
-            background: #f5f1ed;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            overflow: hidden;
-        }
-
-        .invitation-container {
-            width: 100%;
-            max-width: 500px;
-            height: 700px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .card {
-            width: 100%;
-            height: 100%;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 60px 40px;
-            text-align: center;
-            cursor: pointer;
-            overflow: hidden;
-            position: relative;
-            transition: all 0.4s ease;
-        }
-
-        .card:hover {
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.2);
-            transform: translateY(-5px);
-        }
-
-        .flower-decoration {
-            position: absolute;
-            opacity: 0.7;
-        }
-
-        .flower-decoration.top-left {
-            top: 10px;
-            left: 10px;
-            width: 170px;
-            height: 170px;
-        }
-
-        .flower-decoration.bottom-right {
-            bottom: 10px;
-            right: 10px;
-            width: 160px;
-            height: 160px;
-        }
-
-        .card-content {
-            position: relative;
-            z-index: 2;
-            max-width: 100%;
-        }
-
-        .card-content h2 {
-            font-family: 'Great Vibes', cursive;
-            font-size: 4rem;
-            font-weight: 400;
-            color: #8b7355;
-            margin-bottom: 10px;
-            letter-spacing: 2px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-        }
-
-        .guest-name {
-            font-size: 1.9rem;
-            color: #2c2c2c;
-            font-weight: 500;
-            margin-bottom: 35px;
-            letter-spacing: 2px;
-            text-transform: capitalize;
-        }
-
-        .subtitle {
-            font-size: 0.95rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: #725d44;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-
-        .couple-names {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.1rem;
-            font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 20px;
-            letter-spacing: 4px;
-            line-height: 1.6;
-        }
-
-        #guestTitle {
-            font-size: 1.6rem;
-            color: #725d44;
-            font-weight: 700;
-        }
-
-        #guestFullName {
-            display: block;
-            margin-top: 8px;
-            font-size: 2.3rem;
-            background: linear-gradient(135deg, #725d44 0%, #b88a5d 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 800;
-        }
-
-        .date-text {
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            color: #725d44;
-            margin-bottom: 30px;
-            font-weight: 700;
-        }
-
-        .bottom-text {
-            font-size: 1rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: #725d44;
-            font-weight: 700;
-        }
-
-        .hint {
-            font-size: 1rem;
-            opacity: 1;
-            margin-top: 35px;
-            animation: pulse 1.5s ease-in-out infinite;
-            letter-spacing: 2px;
-            color: #8b7355;
-            font-weight: 600;
-            text-decoration: underline;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.05); opacity: 0.7; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .loading {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.1);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 200;
-            backdrop-filter: blur(2px);
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(139, 115, 85, 0.2);
-            border-top-color: #8b7355;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .invitation-container {
-                height: 600px;
-            }
-
-            .card-content h2 {
-                font-size: 3rem;
-            }
-
-            .subtitle,
-            .bottom-text {
-                font-size: 0.85rem;
-            }
-
-            .guest-name {
-                font-size: 1.5rem;
-            }
-
-            .couple-names {
-                font-size: 1.4rem;
-            }
-
-            .date-text {
-                font-size: 0.95rem;
-            }
-
-            .card {
-                padding: 50px 30px;
-            }
-
-            .flower-decoration {
-                opacity: 0.5;
-            }
-
-            .flower-decoration.top-left {
-                width: 100px;
-                height: 100px;
-            }
-
-            .flower-decoration.bottom-right {
-                width: 100px;
-                height: 100px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .invitation-container {
-                height: 500px;
-            }
-
-            .card-content h2 {
-                font-size: 1.8rem;
-            }
-
-            .subtitle,
-            .bottom-text {
-                font-size: 0.75rem;
-                letter-spacing: 1px;
-            }
-
-            .guest-name {
-                font-size: 1.3rem;
-            }
-
-            .couple-names {
-                font-size: 1.2rem;
-            }
-
-            .card {
-                padding: 40px 25px;
-            }
-
-            .flower-decoration.top-left {
-                width: 80px;
-                height: 80px;
-                top: 10px;
-                left: 10px;
-            }
-
-            .flower-decoration.bottom-right {
-                width: 80px;
-                height: 80px;
-                bottom: 10px;
-                right: 10px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
-    <div class="invitation-container" id="invitationContainer">
-        <div class="card" id="card">
-            <div class="flower-decoration top-left"
-                style="background: url('images/bg0002.png') no-repeat center; background-size: contain;"></div>
+    <!-- Background Music -->
+    <audio id="background-music" loop>
+        <source src="music/wedding-song.mp3" type="audio/mpeg">
+    </audio>
 
-            <div class="flower-decoration bottom-right"
-                style="background: url('images/bg0004.png') no-repeat center; background-size: contain;"></div>
+    <div class="container">
+        <!-- Header Section -->
+        <section class="header-section">
+            <!-- Flower decoration top left -->
+            <img src="images/bg0001.png" alt="Flower decoration" class="flower-decoration flower-top-left"
+                loading="lazy">
 
-            <div class="card-content">
-                <h2>Thiệp mời</h2>
-                <p class="subtitle">WEDDING INVITATION</p>
+            <!-- Bride & Groom Photo -->
+            <div style="position: relative;">
+                <img src="images/6-TED_9270.jpg" alt="Minh Hảo & Phi Ta" class="bride-groom-photo" loading="lazy"
+                    width="300" height="400"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div
+                    style="display:none; width:300px; height:400px; border-radius:8px; background:linear-gradient(135deg, #8b4f4f 0%, #5a3030 100%); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); flex-shrink:0; position:relative;">
+                    <div
+                        style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); color:#fff; font-size:11px; text-align:center; padding:10px;">
+                        Thêm ảnh<br>6-TED_9270.jpg
+                    </div>
+                </div>
+            </div>
 
-                <div class="couple-names" id="coupleNames">
-                    <span id="guestTitle">ANH/CHỊ</span><br>
-                    <span id="guestFullName">...</span>
+            <div class="header-content">
+                <h1 class="couple-names">
+                    Minh Hảo<br>
+                    & Phi Ta
+                </h1>
+                <div class="wedding-info">
+                    22 tháng 01 năm 2026 | 11 giờ trưa<br>
+                    Tại nhà hàng tiệc cưới Tiến Được<br>
+                    <a href="https://maps.app.goo.gl/bxtFLvYh7RKKyudH7" target="_blank" rel="noopener noreferrer"
+                        class="map-link">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            style="vertical-align: middle; margin-right: 4px;">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        Xem bản đồ
+                    </a>
+                </div>
+            </div>
+
+            <!-- Flower decoration top right -->
+            <img src="images/bg0002.png" alt="Flower decoration" class="flower-decoration flower-top-right"
+                loading="lazy" width="344" height="209">
+        </section>
+
+        <!-- Story Section -->
+        <section class="story-section">
+            <div class="story-header">
+                <!-- Flower left -->
+                <img src="images/bg0004.png" alt="Flower decoration" class="flower-left" loading="lazy" width="160"
+                    height="143">
+
+                <h2 class="story-title">🌿 Hành trình mang tên "Chúng mình"</h2>
+            </div>
+
+            <div class="story-wrapper">
+                <div class="story-content">
+                    <p class="story-text">
+                        Từ những ngày đầu còn bỡ ngỡ cho đến khi quen thuộc từng ánh nhìn, Phi Ta & Minh Hảo đã cùng
+                        nhau đi qua hơn mười tháng đầy yêu thương và sẻ chia.
+                        Giữa muôn vàn điều bình thường, họ tìm thấy nhau - giản dị nhưng lại thật đúng người.
+                    </p>
+                    <p class="story-text">
+                        Giờ đây, hai trái tim ấy quyết định cùng nhau bước sang một chương mới, với niềm tin và tình yêu
+                        luôn đong đầy.
+                        Mong bạn sẽ cùng đến, để chia vui và chứng kiến khoảnh khắc ý nghĩa nhất của tụi mình.
+                    </p>
                 </div>
 
-                <div class="date-text">22/01/2026 | 11h</div>
+                <!-- Flower right -->
+                <img src="images/bg0003.png" alt="Flower decoration" class="flower-right" loading="lazy" width="160"
+                    height="143">
+            </div>
+        </section>
 
-                <div class="bottom-text">TRÂN TRỌNG KÍNH MỜI!</div>
+        <!-- Gallery Section -->
+        <section class="gallery-section">
+            <div class="gallery-grid">
+                <!-- Photo 1 -->
+                <div style="position:relative;">
+                    <img src="images/7-TED_9222.jpg" alt="Ảnh cưới truyền thống" class="gallery-item" loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="gallery-item"
+                        style="display:none; align-items:center; justify-content:center; color:#999; font-size:12px; text-align:center; padding:20px;">
+                        Thêm ảnh<br>7-TED_9222.jpg
+                    </div>
+                </div>
 
-                <div class="hint">Nhấp để tiếp tục</div>
+                <!-- Photo 2 -->
+                <div style="position:relative;">
+                    <img src="images/11-TED_8800.jpg" alt="Ảnh cưới phương Tây" class="gallery-item" loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="gallery-item"
+                        style="display:none; align-items:center; justify-content:center; color:#999; font-size:12px; text-align:center; padding:20px;">
+                        Thêm ảnh<br>11-TED_8800.jpg
+                    </div>
+                </div>
+
+                <!-- Photo 3 -->
+                <div style="position:relative;">
+                    <img src="images/12-TED_8621.jpg" alt="Ảnh cưới phương Tây" class="gallery-item" loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="gallery-item"
+                        style="display:none; align-items:center; justify-content:center; color:#999; font-size:12px; text-align:center; padding:20px;">
+                        Thêm ảnh<br>12-TED_8621.jpg
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Guest Information Form Section -->
+        <section class="form-section">
+            <!-- Flower decoration top left -->
+            <img src="images/bg0010.png" alt="Flower decoration" class="form-flower-left" loading="lazy">
+
+            <!-- Flower decoration top right -->
+            <img src="images/bg0005.png" alt="Flower decoration" class="form-flower-right" loading="lazy">
+
+            <div class="form-container">
+                <h2 class="form-title">Xác nhận thông tin khách mời</h2>
+                <p class="form-subtitle">Vui lòng điền đầy đủ thông tin để chúng tôi chuẩn bị chu đáo hơn</p>
+
+                <script type="text/javascript">
+                    var submitted = false;
+                </script>
+                <iframe id="hidden_iframe" name="hidden_iframe" style="display: none;"></iframe>
+
+                <form id="guest-form" onsubmit="submitted=true;" target="hidden_iframe" method="GET"
+                    action="https://script.google.com/macros/s/AKfycbyWpLhX2NXATxfPbbMjgej8r_Dux1cFjXYQGZ7Lq6ZDFRwbaSi7KK_trR04fNd46Hi9Iw/exec">
+                    <!-- Full Name -->
+                    <div class="form-group">
+                        <label class="form-label">Họ và tên <span style="color: #d4394d;">*</span></label>
+                        <input type="text" class="form-input" name="Họ và tên" placeholder="Nhập họ và tên của bạn"
+                            required>
+                    </div>
+
+                    <!-- Phone Number -->
+                    <div class="form-group">
+                        <label class="form-label">Số điện thoại <span style="color: #d4394d;">*</span></label>
+                        <input type="tel" class="form-input" name="Số điện thoại" placeholder="Nhập số điện thoại"
+                            pattern="[0-9\-\+\s\(\)]*" required>
+                    </div>
+
+                    <!-- Number of Guests -->
+                    <div class="form-group">
+                        <label class="form-label">Số lượng khách <span style="color: #d4394d;">*</span></label>
+                        <select class="form-select" name="Số lượng khách" required>
+                            <option value="">-- Chọn số lượng khách --</option>
+                            <option value="1 người">1 người</option>
+                            <option value="2 người">2 người</option>
+                            <option value="Hơn 2 người">Hơn 2 người</option>
+                        </select>
+                    </div>
+
+                    <!-- Transportation -->
+                    <div class="form-group">
+                        <label class="form-label">Phương tiện di chuyển <span style="color: #d4394d;">*</span></label>
+                        <div class="form-radio-group">
+                            <div class="form-radio">
+                                <input type="radio" name="Phương tiện di chuyển" value="Cô dâu sắp xếp xe" required>
+                                <label>Cô dâu sắp xếp xe</label>
+                            </div>
+                            <div class="form-radio">
+                                <input type="radio" name="Phương tiện di chuyển" value="Tự túc">
+                                <label>Tự túc</label>
+                            </div>
+                            <div class="form-radio">
+                                <input type="radio" name="Phương tiện di chuyển" value="Khác">
+                                <label>Khác</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Special Requests -->
+                    <div class="form-group">
+                        <label class="form-label">Yêu cầu đặc biệt (tùy chọn)</label>
+                        <textarea class="form-input" name="Yêu cầu đặc biệt"
+                            placeholder="Ví dụ: Bạn có yêu cầu về thực phẩm, ghế ngồi hay bất cứ thứ gì khác..."
+                            style="resize: vertical; min-height: 100px; font-family: 'Muli', sans-serif;"></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div style="text-align: center; margin-top: 30px;">
+                        <button type="submit" class="form-submit">Xác nhận tham dự</button>
+                    </div>
+
+                    <!-- Congratulations Button -->
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button type="button" id="congratulations-btn" class="congratulations-btn">MỪNG CƯỚI</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- RSVP Section -->
+        <section class="rsvp-section">
+            <!-- Flower top right -->
+            <img src="images/bg0007.png" alt="Flower decoration" class="rsvp-flower-top" loading="lazy">
+
+            <!-- Flower bottom left -->
+            <img src="images/bg0006.png" alt="Flower decoration" class="rsvp-flower-bottom" loading="lazy">
+
+            <div class="rsvp-content">
+                <h2 class="rsvp-title">
+                    Sự hiện diện của <span id="guest-title-1">bạn</span> đã là một món quà vô giá!
+                </h2>
+
+                <p class="rsvp-text">
+                    Điều ý nghĩa nhất là được chia sẻ ngày hạnh phúc này cùng <span id="guest-title-2">bạn</span>.<br>
+                    Lời chúc phúc chân thành của <span id="guest-title-3">bạn</span> chính là món quà quý giá nhất<br>
+                    mà chúng tôi mong muốn nhận được
+                </p>
+
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px;">
+                    <a href="/wedding/gallery.html" class="rsvp-button">XEM KHOẢNH KHẮC ĐẸP</a>
+                </div>
+            </div>
+
+            <!-- Leaf bottom right -->
+            <img src="images/bg0008.png" alt="Leaf decoration" class="rsvp-leaf-right" loading="lazy">
+        </section>
+    </div>
+
+    <!-- Modal Notification -->
+    <div id="notification-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-body">
+                <!-- Loading State -->
+                <div id="loading-state" class="modal-state">
+                    <div class="spinner"></div>
+                    <p class="modal-text">Đang xử lý...</p>
+                </div>
+
+                <!-- Success State -->
+                <div id="success-state" class="modal-state" style="display: none;">
+                    <div class="success-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="modal-title">Cảm ơn bạn!</h3>
+                    <p class="modal-text">Chúng tôi đã nhận được xác nhận của bạn.<br>Sẽ sớm liên hệ với bạn.</p>
+                </div>
+
+                <!-- Error State -->
+                <div id="error-state" class="modal-state" style="display: none;">
+                    <div class="error-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="15" y1="9" x2="9" y2="15"></line>
+                            <line x1="9" y1="9" x2="15" y2="15"></line>
+                        </svg>
+                    </div>
+                    <h3 class="modal-title">Có lỗi xảy ra</h3>
+                    <p class="modal-text" id="error-message">Vui lòng thử lại hoặc gọi 0935523473</p>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="loading" id="loading">
-        <div class="spinner"></div>
-    </div>
-
-    <script>
-        // Lấy tham số từ URL
+    <!-- QR Code Modal -->
+    <div id="qr-modal" class="modal">
+        <div class="modal-content qr-modal-content">
+            <div class="modal-body">
+                <div class="qr-modal-header">
+                    <h3 class="modal-title">Mừng cưới cô dâu Minh Hảo ❤️</h3>
+                    <button id="qr-modal-close" class="qr-modal-close-btn">&times;</button>
+                </div>
+                <div class="qr-content">
+                    <div class="qr-image-container">
+                        <img src="images/qr-code.jpg" alt="QR Code mừng cưới" class="qr-code-image" 
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <div class="qr-placeholder" style="display:none; width:200px; height:200px; border-radius:8px; background:linear-gradient(135deg, #8b4f4f 0%, #5a3030 100%); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); flex-shrink:0; position:relative;">
+                            <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); color:#fff; font-size:12px; text-align:center; padding:10px;">
+                                Thêm ảnh QR code<br>images/qr-code.jpg
+                            </div>
+                        </div>
+                    </div>
+                    <p class="qr-description">
+                        Quét mã QR để gửi lời chúc mừng và quà mừng cưới đến cô dâu <strong>Minh Hảo 😘</strong> 
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>    <script>
+        // Get URL parameters
         function getUrlParameter(name) {
             const queryString = window.location.search.substring(1);
             const params = queryString.split('&');
@@ -336,50 +322,278 @@
             return '';
         }
 
-        // Cập nhật tên khách mời
-        function initializeGuest() {
-            let title = getUrlParameter('title');
-            title = title.replace(/_/g, ' ');
+        // Music control - Play only on user interaction
+        let musicStarted = false;
+        let music = null;
 
-            let name = getUrlParameter('name');
-            name = name.replace(/_/g, ' ');   
-            const guestTitleElement = document.getElementById('guestTitle');
-            if (title) {
-                const capitalizedTitle = title.toUpperCase();
-                guestTitleElement.textContent = capitalizedTitle;
+        function startBackgroundMusic(event) {
+            if (musicStarted) return;
+
+            console.log('User interaction detected:', event.type);
+
+            if (!music) {
+                music = document.getElementById('background-music');
             }
 
-            const guestFullNameElement = document.getElementById('guestFullName');
-            if (name) {
-                guestFullNameElement.textContent = name.toUpperCase();
+            if (music) {
+                // Load the audio first
+                music.load();
+
+                music.play()
+                    .then(() => {
+                        console.log('✓ Music started successfully');
+                        musicStarted = true;
+                        // Remove all event listeners after music starts
+                        document.removeEventListener('click', startBackgroundMusic, true);
+                        document.removeEventListener('touchstart', startBackgroundMusic, true);
+                        document.removeEventListener('touchend', startBackgroundMusic, true);
+                        document.removeEventListener('mousedown', startBackgroundMusic, true);
+                    })
+                    .catch(err => {
+                        console.error('✗ Failed to start music:', err.name, err.message);
+                        musicStarted = false;
+                    });
+            } else {
+                console.error('✗ Music element not found');
             }
         }
 
-        function goToIndex() {
-            document.getElementById('loading').classList.add('active');
-            let title = getUrlParameter('title');
+        // Wait for DOM to be ready, then attach listeners
+        document.addEventListener('DOMContentLoaded', function () {
+            music = document.getElementById('background-music');
+            if (music) {
+                music.volume = 0.3; // Set volume to 30%
+                console.log('Music element loaded, volume set to 30%');
 
+                // Only attach DIRECT user interaction events (not scroll/mousemove)
+                // These are the ONLY events browsers consider as "user gesture"
+                document.addEventListener('click', startBackgroundMusic, true);
+                document.addEventListener('touchstart', startBackgroundMusic, true);
+                document.addEventListener('touchend', startBackgroundMusic, true);
+                document.addEventListener('mousedown', startBackgroundMusic, true);
+
+                console.log('Event listeners attached. Click or touch screen to start music.');
+            } else {
+                console.error('✗ Audio element not found!');
+            }
+
+            // Initialize guest name from URL parameters
+            let title = getUrlParameter('title') || '';
             title = title.replace(/_/g, ' ');
-
-            let name = getUrlParameter('name');
             
-            // Replace underscores with spaces in name parameter
+            let name = getUrlParameter('name') || '';
             name = name.replace(/_/g, ' ');
 
-            let url = '/wedding/invitation.html';
-            if (title || name) {
-                url += '?';
-                if (title) url += 'title=' + encodeURIComponent(title);
-                if (title && name) url += '&';
-                if (name) url += 'name=' + encodeURIComponent(name);
+            // Update form input if guest info is provided
+            const fullNameInput = document.querySelector('input[name="Họ và tên"]');
+            if (fullNameInput && (title || name)) {
+                const guestName = title && name ? title + ' ' + name : (title || name);
+                fullNameInput.value = guestName;
+                fullNameInput.disabled = true; // Make it read-only
+                fullNameInput.style.backgroundColor = '#f9f9f9';
+                fullNameInput.style.cursor = 'not-allowed';
             }
 
-            setTimeout(() => {
-                window.location.href = url;
-            }, 500);
+            // Update all "bạn" text with title parameter if provided
+            if (title) {
+                const guestTitle1 = document.getElementById('guest-title-1');
+                const guestTitle2 = document.getElementById('guest-title-2');
+                const guestTitle3 = document.getElementById('guest-title-3');
+                
+                if (guestTitle1) guestTitle1.textContent = title;
+                if (guestTitle2) guestTitle2.textContent = title;
+                if (guestTitle3) guestTitle3.textContent = title;
+            }
+        });
+
+        // Modal notification functions
+        function showNotificationModal() {
+            const modal = document.getElementById('notification-modal');
+            modal.style.display = 'flex';
+            document.getElementById('loading-state').style.display = 'flex';
+            document.getElementById('success-state').style.display = 'none';
+            document.getElementById('error-state').style.display = 'none';
         }
 
-        // Hiệu ứng pháo hoa
+        function showSuccessModal() {
+            document.getElementById('loading-state').style.display = 'none';
+            document.getElementById('success-state').style.display = 'flex';
+            setTimeout(() => {
+                closeNotificationModal();
+            }, 3000);
+        }
+
+        function showErrorModal(message = 'Vui lòng thử lại') {
+            document.getElementById('loading-state').style.display = 'none';
+            document.getElementById('error-state').style.display = 'flex';
+            document.getElementById('error-message').textContent = message;
+        }
+
+        function closeNotificationModal() {
+            const modal = document.getElementById('notification-modal');
+            modal.style.display = 'none';
+        }
+
+        // Add timestamp to form
+        function addTimestampToForm() {
+            const form = document.getElementById('guest-form');
+            if (form) {
+                // Create hidden input for timestamp
+                let timestampInput = form.querySelector('input[name="Thời gian submit"]');
+                if (!timestampInput) {
+                    timestampInput = document.createElement('input');
+                    timestampInput.type = 'hidden';
+                    timestampInput.name = 'Thời gian submit';
+                    form.appendChild(timestampInput);
+                }
+
+                // Set current timestamp
+                const now = new Date();
+                const timestamp = now.toLocaleString('vi-VN', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+                timestampInput.value = timestamp;
+            }
+        }
+
+        // Handle form submission
+        const form = document.getElementById('guest-form');
+        if (form) {
+            form.addEventListener('submit', function (e) {
+                addTimestampToForm();
+                showNotificationModal();
+            });
+        }
+
+        // Listen for iframe load to show success
+        const iframe = document.getElementById('hidden_iframe');
+        if (iframe) {
+            iframe.addEventListener('load', function () {
+                if (window.submitted) {
+                    showSuccessModal();
+                    window.submitted = false;
+                }
+            });
+        }
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'all 0.6s ease-out';
+            observer.observe(section);
+        });
+
+        // Image loading optimization
+        document.addEventListener('DOMContentLoaded', function () {
+            // Add fade-in effect for images
+            const images = document.querySelectorAll('img[loading="lazy"]');
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.style.opacity = '0';
+                        img.style.transition = 'opacity 0.3s ease-in-out';
+
+                        img.onload = function () {
+                            img.style.opacity = '1';
+                        };
+
+                        // If image is already loaded
+                        if (img.complete) {
+                            img.style.opacity = '1';
+                        }
+
+                        observer.unobserve(img);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            images.forEach(img => imageObserver.observe(img));
+        });
+
+        // QR Code Modal functions
+        function showQrModal() {
+            // Blur any active input to prevent focus issues
+            if (document.activeElement && document.activeElement.blur) {
+                document.activeElement.blur();
+            }
+            
+            const modal = document.getElementById('qr-modal');
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            
+            // Set focus to close button for better accessibility
+            setTimeout(() => {
+                const closeBtn = document.getElementById('qr-modal-close');
+                if (closeBtn) {
+                    closeBtn.focus();
+                }
+            }, 100);
+        }
+
+        function closeQrModal() {
+            const modal = document.getElementById('qr-modal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        // Handle congratulations button click
+        document.addEventListener('DOMContentLoaded', function() {
+            const congratulationsBtn = document.getElementById('congratulations-btn');
+            const qrModalClose = document.getElementById('qr-modal-close');
+            const qrModal = document.getElementById('qr-modal');
+
+            if (congratulationsBtn) {
+                congratulationsBtn.addEventListener('click', function(e) {
+                    e.preventDefault(); // Prevent default button behavior
+                    showQrModal();
+                });
+            }
+
+            if (qrModalClose) {
+                qrModalClose.addEventListener('click', closeQrModal);
+            }
+
+            // Close modal when clicking outside
+            if (qrModal) {
+                qrModal.addEventListener('click', function(e) {
+                    if (e.target === qrModal) {
+                        closeQrModal();
+                    }
+                });
+            }
+
+            // Close modal with ESC key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && qrModal && qrModal.style.display === 'flex') {
+                    closeQrModal();
+                }
+            });
+
+            // Hiệu ứng pháo hoa
+            initFireworks();
+        });
+
         function initFireworks() {
             const canvas = document.createElement('canvas');
             canvas.style.position = 'fixed';
@@ -442,7 +656,7 @@
 
             function animate() {
                 requestAnimationFrame(animate);
-                ctx.fillStyle = 'rgba(245, 241, 237, 0.1)'; // Trùng màu nền body
+                ctx.fillStyle = 'rgba(255, 252, 249, 0.1)'; // Trùng màu nền body của invitation.html
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
                 particles.forEach((particle, index) => {
@@ -461,14 +675,6 @@
 
             animate();
         }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            initializeGuest();
-            initFireworks();
-
-            const card = document.getElementById('card');
-            card.addEventListener('click', goToIndex);
-        });
     </script>
 </body>
 
