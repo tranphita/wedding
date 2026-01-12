@@ -68,7 +68,7 @@ body {
     position: absolute;
     object-fit: contain;
     opacity: 0.9;
-    z-index: 1;
+    z-index: -1;
     /* High quality rendering for decorations */
     image-rendering: auto;
     transform: translateZ(0);
